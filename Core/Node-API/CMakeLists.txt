@@ -1,5 +1,7 @@
 # Set per-platform defaults if unspecified.
-if(WIN32)
+if(WINDOWS_STORE)
+    set(NAPI_JAVASCRIPT_ENGINE "Hermes" CACHE STRING "JavaScript engine for Node-API")
+elseif(WIN32)
     set(NAPI_JAVASCRIPT_ENGINE "Chakra" CACHE STRING "JavaScript engine for Node-API")
 elseif(APPLE)
     set(NAPI_JAVASCRIPT_ENGINE "JavaScriptCore" CACHE STRING "JavaScript engine for Node-API")
@@ -47,6 +49,11 @@ if(NAPI_BUILD_ABI)
 
         set(LINK_LIBRARIES ${LINK_LIBRARIES}
             INTERFACE "chakrart.lib")
+    elseif(NAPI_JAVASCRIPT_ENGINE STREQUAL "Hermes")
+        set(SOURCES ${SOURCES}
+            "Source/env_hermes.cc"
+            "Source/js_native_api_hermes.cc"
+            "Source/js_native_api_hermes.h")
     elseif(NAPI_JAVASCRIPT_ENGINE STREQUAL "JavaScriptCore")
         set(SOURCES ${SOURCES}
             "Source/env_javascriptcore.cc"
