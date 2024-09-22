@@ -1,6 +1,6 @@
 #pragma once
 
-#include <jsi/jsi.h>
+#include "jsi/jsi.h"
 #include <functional>
 #include <initializer_list>
 #include <memory>

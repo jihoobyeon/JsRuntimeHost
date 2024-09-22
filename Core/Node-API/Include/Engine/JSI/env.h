@@ -1,7 +1,7 @@
 #pragma once
 
 #include "napi.h"
-#include <jsi/jsi.h>
+#include "jsi/jsi.h"
 
 namespace Napi
 {

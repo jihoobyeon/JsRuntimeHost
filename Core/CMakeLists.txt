@@ -1,8 +1,4 @@
-if(NAPI_JAVASCRIPT_ENGINE STREQUAL "JSI")
-    add_subdirectory(Node-API-JSI)
-else()
-    add_subdirectory(Node-API)
-endif()
+add_subdirectory(Node-API)
 
 add_subdirectory(Node-API-Extensions)
 

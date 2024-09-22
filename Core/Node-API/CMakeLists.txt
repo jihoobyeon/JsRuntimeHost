@@ -14,29 +14,17 @@ else()
     message(FATAL_ERROR "Unable to select Node-API JavaScript engine for platform")
 endif()
 
-if(WINDOWS_STORE)
-    set(SOURCES
-        "Include/Shared/napi/js_native_api.h"
-        "Include/Shared/napi/js_native_api_types.h"
-        "Include/Shared/napi/napi.h"
-        "Include/Shared/napi/napi-inl.h"
-        "Source/env.cc")
+set(SOURCES
+    "Include/Engine/${NAPI_JAVASCRIPT_ENGINE}/napi/env.h"
+    "Include/Shared/napi/js_native_api.h"
+    "Include/Shared/napi/js_native_api_types.h"
+    "Include/Shared/napi/napi.h"
+    "Include/Shared/napi/napi-inl.h"
+    "Source/env.cc")
     
-    set(INCLUDE_DIRECTORIES
-        PUBLIC "Include/Shared")
-else()
-    set(SOURCES
-        "Include/Engine/${NAPI_JAVASCRIPT_ENGINE}/napi/env.h"
-        "Include/Shared/napi/js_native_api.h"
-        "Include/Shared/napi/js_native_api_types.h"
-        "Include/Shared/napi/napi.h"
-        "Include/Shared/napi/napi-inl.h"
-        "Source/env.cc")
-    
-    set(INCLUDE_DIRECTORIES
-        PUBLIC "Include/Shared"
-        PUBLIC "Include/Engine/${NAPI_JAVASCRIPT_ENGINE}")
-endif()
+set(INCLUDE_DIRECTORIES
+    PUBLIC "Include/Shared"
+    PUBLIC "Include/Engine/${NAPI_JAVASCRIPT_ENGINE}")
 
 if(NAPI_BUILD_ABI)
     if(ANDROID)
@@ -61,7 +49,7 @@ if(NAPI_BUILD_ABI)
 
         set(LINK_LIBRARIES ${LINK_LIBRARIES}
             INTERFACE "chakrart.lib")
-
+    elseif(NAPI_JAVASCRIPT_ENGINE STREQUAL "JavaScriptCore")
         set(SOURCES ${SOURCES}
             "Source/env_javascriptcore.cc"
             "Source/js_native_api_javascriptcore.cc"
@@ -159,6 +147,17 @@ if(NAPI_BUILD_ABI)
             message(FATAL_ERROR "Unsupported JavaScript engine: ${NAPI_JAVASCRIPT_ENGINE}")
         endif()
     elseif(NAPI_JAVASCRIPT_ENGINE STREQUAL "JSI")
+        set(SOURCES ${SOURCES}
+            "Include/Engine/JSI/jsi/instrumentation.h"
+            "Include/Engine/JSI/jsi/jsi-inl.h"
+            "Include/Engine/JSI/jsi/jsi.h"
+            "Include/Engine/JSI/jsi/jsi.cpp"
+            "Include/Engine/JSI/env.h"
+            "Include/Engine/JSI/napi.h"
+            "Include/Engine/JSI/napi-inl.h"
+            "Source/env_jsi.cc")
+        set(INCLUDE_DIRECTORIES
+            PUBLIC "Include/Engine/JSI/jsi")
     else()
         message(FATAL_ERROR "Unsupported JavaScript engine: ${NAPI_JAVASCRIPT_ENGINE}")
     endif()
