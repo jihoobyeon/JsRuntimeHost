@@ -14,7 +14,17 @@ else()
     message(FATAL_ERROR "Unable to select Node-API JavaScript engine for platform")
 endif()
 
-if(NOT WINDOWS_STORE)
+if(WINDOWS_STORE)
+    set(SOURCES
+        "Include/Shared/napi/js_native_api.h"
+        "Include/Shared/napi/js_native_api_types.h"
+        "Include/Shared/napi/napi.h"
+        "Include/Shared/napi/napi-inl.h"
+        "Source/env.cc")
+    
+    set(INCLUDE_DIRECTORIES
+        PUBLIC "Include/Shared")
+else()
     set(SOURCES
         "Include/Engine/${NAPI_JAVASCRIPT_ENGINE}/napi/env.h"
         "Include/Shared/napi/js_native_api.h"
@@ -148,9 +158,7 @@ if(NAPI_BUILD_ABI)
         else()
             message(FATAL_ERROR "Unsupported JavaScript engine: ${NAPI_JAVASCRIPT_ENGINE}")
         endif()
-    elseif(NAPI_JAVASCRIPT_ENGINE STREQUAL "JSI")
-        message(STATUS "Selected JSI-Hermes")
-    else()
+    elseif(NAPI_JAVASCRIPT_ENGINE NOT STREQUAL "JSI")
         message(FATAL_ERROR "Unsupported JavaScript engine: ${NAPI_JAVASCRIPT_ENGINE}")
     endif()
 
