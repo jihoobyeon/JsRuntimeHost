@@ -1,6 +1,6 @@
 #pragma once
 
-#include "napi.h"
+#include <napi/napi.h>
 #include "jsi/jsi.h"
 
 namespace Napi

@@ -2,8 +2,8 @@
 #include "WorkQueue.h"
 
 #include <napi/env.h>
-#include <V8JsiRuntime.h>
-#include <ScriptStore.h>
+#include "V8JsiRuntime.h"
+#include "ScriptStore.h"
 
 namespace
 {
