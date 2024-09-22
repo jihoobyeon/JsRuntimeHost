@@ -156,8 +156,6 @@ if(NAPI_BUILD_ABI)
             "Include/Engine/JSI/napi/napi.h"
             "Include/Engine/JSI/napi/napi-inl.h"
             "Source/env_jsi.cc")
-        set(INCLUDE_DIRECTORIES
-            PUBLIC "Include/Engine/JSI/napi/jsi")
     else()
         message(FATAL_ERROR "Unsupported JavaScript engine: ${NAPI_JAVASCRIPT_ENGINE}")
     endif()
