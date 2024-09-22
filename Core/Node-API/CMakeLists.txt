@@ -1,8 +1,6 @@
 # Set per-platform defaults if unspecified.
-if(WINDOWS_STORE)
+if(WIN32)
     set(NAPI_JAVASCRIPT_ENGINE "JSI" CACHE STRING "JavaScript engine for Node-API")
-elseif(WIN32)
-    set(NAPI_JAVASCRIPT_ENGINE "Chakra" CACHE STRING "JavaScript engine for Node-API")
 elseif(APPLE)
     set(NAPI_JAVASCRIPT_ENGINE "JavaScriptCore" CACHE STRING "JavaScript engine for Node-API")
 elseif(ANDROID)
